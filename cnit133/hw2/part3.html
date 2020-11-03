@@ -29,71 +29,71 @@
   <div class="container">
     <div class="nav">
       <button onClick="window.location.href='../homework2.html'">Home</button>
-      <button onClick="window.location.href='./part1.html'"">Part 1</button>
+      <button onClick="window.location.href='./part1.html'">Part 1</button>
       <button onClick=" window.location.href='./part2.html'">Part 2</button>
     </div>
     <form>
-      <input id=" in-1" />
+      <input id="in-1" />
       <input id="in-2" />
       <input id="in-3" />
       <input id="in-4" />
       <input id="in-5" />
       <button type="submit" id="submit">submit</button>
-      </form>
-      <div>
-        <span id="valid"></span>
-        <span id="neg"></span><br />
-        <span id="zero"></span><br />
-        <span id="pos"></span><br />
-      </div>
+    </form>
+    <div>
+      <span id="valid"></span>
+      <span id="neg"></span><br />
+      <span id="zero"></span><br />
+      <span id="pos"></span><br />
     </div>
-    <script>
-      $(document).ready(() => {
-        $('#submit').click((event) => {
-          event.preventDefault();
+  </div>
+  <script>
+    $(document).ready(() => {
+      $('#submit').click((event) => {
+        event.preventDefault();
 
-          let allNumbers = true;
-          $('#valid').text('')
+        let allNumbers = true;
+        $('#valid').text('')
 
-          let inputs = [];
-          let results = {
-            "neg": 0,
-            "zero": 0,
-            "pos": 0,
-          }
-          inputs.push(parseInt($('#in-1').val()));
-          inputs.push(parseInt($('#in-2').val()));
-          inputs.push(parseInt($('#in-3').val()));
-          inputs.push(parseInt($('#in-4').val()));
-          inputs.push(parseInt($('#in-5').val()));
+        let inputs = [];
+        let results = {
+          "neg": 0,
+          "zero": 0,
+          "pos": 0,
+        }
+        inputs.push(parseInt($('#in-1').val()));
+        inputs.push(parseInt($('#in-2').val()));
+        inputs.push(parseInt($('#in-3').val()));
+        inputs.push(parseInt($('#in-4').val()));
+        inputs.push(parseInt($('#in-5').val()));
 
-          inputs.forEach((number) => {
-            if (isNaN(number)) {
-              allNumbers = false;
-            } else {
-              if (number < 0) {
-                results.neg += 1;
-              } else if (number > 0) {
-                results.pos += 1;
-              } else if (number === 0) {
-                results.zero += 1;
-              }
-
-            }
-          })
-          //clear fields/form reset
-          if (allNumbers) {
-            $('form')[0].reset();
-            $('#neg').text(`Total negative numbers were ${results.neg}`);
-            $('#zero').text(`Total zeros were ${results.zero}`);
-            $('#pos').text(`Total positive numbers were ${results.pos}`);
-            console.log(results)
+        inputs.forEach((number) => {
+          if (isNaN(number)) {
+            allNumbers = false;
           } else {
-            $('#valid').text('all inputs must be numbers')
+            if (number < 0) {
+              results.neg += 1;
+            } else if (number > 0) {
+              results.pos += 1;
+            } else if (number === 0) {
+              results.zero += 1;
+            }
+
           }
         })
+        //clear fields/form reset
+        if (allNumbers) {
+          $('form')[0].reset();
+          $('#neg').text(`Total negative numbers were ${results.neg}`);
+          $('#zero').text(`Total zeros were ${results.zero}`);
+          $('#pos').text(`Total positive numbers were ${results.pos}`);
+          console.log(results)
+        } else {
+          $('#valid').text('all inputs must be numbers')
+        }
       })
-    </script>
+    })
+  </script>
 </body>
 
 </html>
