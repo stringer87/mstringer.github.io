@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Homework 2: Part 2</title>
+  <meta charset="UTF-8">
+  <meta name="description" content="Homework 2: Part 2">
+  <meta name="author" content="Michael Stringer">
+  <style>
+    input {
+      width: 35px;
+      margin: 5px 10px 5px 0;
+    }
+
+    .container {
+      text-align: center;
+    }
+
+    #nav,
+    button {
+      margin: 15px;
+      border-radius: 4px;
+    }
+
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+    }
+  </style>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+
+<body>
+  <div class="container">
+    <div class="nav">
+      <a href="../homework2.html"><button>Home</button></a>
+      <a href="./part1.html"><button>Part 1</button></a>
+      <a href="./part3.html"><button>Part 3</button></a>
+    </div>
+    <div id="inputs">
+      <input id="in-1" />
+      <input id="in-2" />
+      <input id="in-3" />
+    </div>
+    <div>
+      <button id="btn-calc">Calculate</button><br />
+      <label>Results:</label>
+      <div id="res">
+        <label id="error-msg"></label>
+        <label id="result" style='display:none'></label><br />
+        <label id="average" style='display:none'></label><br />
+        <label id="product" style='display:none'></label><br />
+        <label id="smallest" style='display:none'></label><br />
+        <label id="largest" style='display:none'></label><br />
+      </div>
+    </div>
+  </div>
+  <script>
+    function find(arr) {
+      let res = [];
+      let smallest = arr[0];
+      let largest = arr[0];
+      arr.forEach((num) => {
+        num < smallest ? smallest = num : null;
+        num > largest ? largest = num : null;
+      })
+      res.push(smallest)
+      res.push(largest)
+      return res;
+    }
+
+    function reset() {
+      $('#error-msg').text('');
+      $('#result').text('');
+      $('#average').text('');
+      $('#product').text('');
+      $('#smallest').text('');
+      $('#largest').text('');
+    }
+
+    $('#btn-calc').click((e) => {
+      e.preventDefault();
+      reset()
+      let inputs = [];
+      inputs.push(parseInt($('#in-1').val()));
+      inputs.push(parseInt($('#in-2').val()));
+      inputs.push(parseInt($('#in-3').val()));
+      if (!isNaN(inputs[0]) && !isNaN(inputs[1]) && !isNaN(inputs[2])) {
+        const sum = inputs.reduce((sum, num) => sum += num);
+        const average = (sum) / 3;
+        const product = (inputs[0] * inputs[1] * inputs[2]);
+        const hiLow = find(inputs);
+        $('#result').text(`The sum is ${sum}`).fadeIn(3500);
+        $('#average').text(`The average is ${average.toFixed(2)}`).fadeIn(3500);
+        $('#product').text(`The product is ${product}`).fadeIn(3500);
+        $('#smallest').text(`The smallest int was ${hiLow[0]}`).fadeIn(3500);
+        $('#largest').text(`The largest int was ${hiLow[1]}`).fadeIn(3500);
+
+        $('#in-1').val('');
+        $('#in-2').val('');
+        $('#in-3').val('');
+      } else {
+        $('#error-msg').text('all inputs must be numbers')
+      }
+    })
+
+  </script>
+</body>
+
+</html>
