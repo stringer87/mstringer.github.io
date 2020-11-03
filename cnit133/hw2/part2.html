@@ -21,11 +21,6 @@
       margin: 15px;
       border-radius: 4px;
     }
-
-    input::-webkit-outer-spin-button,
-    input::-webkit-inner-spin-button {
-      -webkit-appearance: none;
-    }
   </style>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
@@ -33,14 +28,14 @@
 <body>
   <div class="container">
     <div class="nav">
-      <a href="../homework2.html"><button>Home</button></a>
-      <a href="./part1.html"><button>Part 1</button></a>
-      <a href="./part3.html"><button>Part 3</button></a>
+      <button onClick="window.location.href='../homework2.html'">Home</button>
+      <button onClick="window.location.href='./part1.html'"">Part 1</button>
+      <button onClick=" window.location.href='./part3.html'">Part 3</button>
     </div>
-    <div id="inputs">
-      <input id="in-1" />
-      <input id="in-2" />
-      <input id="in-3" />
+    <div id=" inputs">
+        <input id="in-1" />
+        <input id="in-2" />
+        <input id="in-3" />
     </div>
     <div>
       <button id="btn-calc">Calculate</button><br />
