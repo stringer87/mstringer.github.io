@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Homework 3: Part 4</title>
+  <meta charset="UTF-8">
+  <meta name="description" content="Homework 3: Part 4">
+  <meta name="author" content="Michael Stringer">
+  <style>
+    #nav {
+      text-align: center;
+      margin: 30px;
+    }
+
+    #container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    #promp {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    #exit {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    #choice {
+      display: flex;
+
+    }
+  </style>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+
+<body>
+  <div id="nav">
+    <a href="../homework3.html"><button>Home</button></a>
+    <a href="part1.html"><button>Part 1</button></a>
+    <a href="part2.html"><button>Part 2</button></a>
+    <a href="part3.html"><button>Part 3</button></a>
+  </div>
+  <div id='container'>
+    <form>
+      <span id="question"></span>
+      <input id="answer" />
+      <button type="submit" id="submit">Check</button>
+    </form>
+    <span id="wrong"></span>
+  </div>
+  <div id="promp">
+    <span>Very Good!</span>
+    <span>Do you wish to continue?</span>
+    <div id="choice">
+      <button class="response">Yes</button>
+      <button class="response">No</button>
+    </div>
+  </div>
+  <div id="exit">
+    <span>Have a good day</span>
+  </div>
+  <script>
+    let $promp = $('#promp');
+    $promp.hide()
+    $('#exit').hide();
+    let first = Math.floor(Math.random() * 9);
+    let second = Math.floor(Math.random() * 9);
+    $('#question').text(`How much is ${first} times ${second}?`);
+    $('#submit').on('click', (e) => {
+      e.preventDefault();
+      $('#wrong').text('');
+      if (parseInt($('#answer')[0].value) === (first * second)) {
+        $('#answer')[0].value = '';
+        $('#promp').show()
+      } else {
+        $('#answer')[0].value = '';
+        $('#wrong').text('Please Try again');
+      }
+    })
+    $('.response').on('click', (e) => {
+      e.preventDefault();
+      if (e.target.innerHTML === 'Yes') {
+        $promp.hide()
+        first = Math.floor(Math.random() * 9);
+        second = Math.floor(Math.random() * 9);
+        $('#question').text(`How much is ${first} times ${second}?`);
+        $('#answer')[0].value = '';
+
+      }
+      if (e.target.innerHTML === 'No') {
+        $('#answer').prop('disabled', true)
+        $('#submit').prop('disabled', true)
+        $promp.hide()
+        $('#exit').show();
+      }
+    })
+  </script>
+</body>
+
+</html>

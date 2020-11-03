@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Homework 3: Part 3</title>
+  <meta charset="UTF-8">
+  <meta name="description" content="Homework 3: Part 3">
+  <meta name="author" content="Michael Stringer">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <style>
+    #nav {
+      text-align: center;
+      margin: 30px;
+    }
+
+    input {
+      width: 50px;
+    }
+
+    .choice {
+      margin: 20px;
+      padding: 8px;
+    }
+
+    #container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    #selection {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+    }
+
+    #err {
+      color: red;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="nav">
+    <a href="../homework3.html"><button>Home</button></a>
+    <a href="part1.html"><button>Part 1</button></a>
+    <a href="part2.html"><button>Part 2</button></a>
+    <a href="part4.html"><button>Part 4</button></a>
+  </div>
+  <div id="container">
+    <input />
+    <div id='selection'>
+      <button class="choice">Fahrenheit</button>
+      <button class="choice">Celsius</button>
+    </div>
+    <span id="err"></span>
+    <span id="response"></span>
+  </div>
+  <script>
+    const validation = (input) => {
+      return isNaN(input)
+    }
+    $('.choice').on('click', (e) => {
+      e.preventDefault();
+      $('#err').text('');
+      let input = parseFloat($('input')[0].value);
+      if (!validation(input)) {
+        if (e.target.innerHTML === 'Fahrenheit') {
+          $('#response').text(Math.round(((9 / 5) * input) + 32))
+        }
+        if (e.target.innerHTML === 'Celsius') {
+          $('#response').text(Math.round((5 / 9) * (input - 32)))
+        }
+      } else {
+        $('#err').text('Please enter a valid Number');
+      }
+    })
+
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Homework 3: Part 2</title>
+  <meta charset="UTF-8">
+  <meta name="description" content="Homework 3: Part 2">
+  <meta name="author" content="Michael Stringer">
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 50px;
+    }
+
+
+    #container {
+      margin: 50px;
+      background-color: #999;
+      width: 500px;
+      height: 420px;
+      padding: 50px;
+    }
+
+    #salesInputs {
+      font-weight: bold;
+      font-size: 20px;
+    }
+
+    #err {
+      color: darkred;
+    }
+  </style>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script>
+    $("#salesPerson").tooltip({
+      position: {
+        my: "center-bottom",
+        at: "center top-10",
+        collision: "none",
+      }
+    });
+  </script>
+</head>
+
+<body>
+  <div id="nav">
+    <a href="../homework3.html"><button>Home</button></a>
+    <a href="part1.html"><button>Part 1</button></a>
+    <a href="part3.html"><button>Part 3</button></a>
+    <a href="part4.html"><button>Part 4</button></a>
+  </div>
+  <div id="container">
+    <label>Sales Person: </label><input id="salesPerson"
+      title="Please make sure that the salesperson's name is spelled correctly" /><br />
+    <label id="salesInputs">Input the total amount sold</label>
+    <form>
+      <label>Item 1:</label>
+      <input class="sales" /> <br />
+      <label>Item 2:</label>
+      <input class="sales" /> <br />
+      <label>Item 3:</label>
+      <input class="sales" /> <br />
+      <label>Item 4:</label>
+      <input class="sales" /> <br />
+      <button id="submit" type="submit">Submit</button>
+      <button id="reset">Reset</button>
+    </form>
+    <table style="text-align: center;">
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Value</th>
+          <th>Number Sold</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>239.99</td>
+          <td><input class="sold" disabled style="background-color: white;" /></td>
+          <td><input class="total" disabled style="background-color: white;" /></td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>129.75</td>
+          <td><input class="sold" disabled style="background-color: white;" /></td>
+          <td><input class="total" disabled style="background-color: white;" /></td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>99.95</td>
+          <td><input class="sold" disabled style="background-color: white;" /></td>
+          <td><input class="total" disabled style="background-color: white;" /></td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>350.89</td>
+          <td><input class="sold" disabled style="background-color: white;" /></td>
+          <td><input class="total" disabled style="background-color: white;" /></td>
+        </tr>
+        <tr>
+          <td>Total</td>
+          <td>Amount Sold:</td>
+          <td></td>
+          <td><input class="totalSold" disabled style="background-color: white;" /></td>
+        </tr>
+        <tr>
+          <td>Total </td>
+          <td>Weekly Earnings:</td>
+          <td></td>
+          <td><input class="earnings" disabled style="background-color: white;" /></td>
+        </tr>
+      </tbody>
+    </table>
+    <label id="err"></label>
+  </div>
+  <script>
+    const validate = (arr) => {
+      let validInputs = true;
+      arr.forEach((input) => {
+        (!isNaN(input) && input >= 0) ? null : validInputs = false;
+      })
+      return validInputs;
+    }
+
+    $('#reset').on('click', (e) => {
+      e.preventDefault();
+      $('.sales').each((e) => ($('.sales')[e].value = ''))
+    })
+    $('#submit').on('click', (e) => {
+      e.preventDefault();
+      $('#err').text('');
+      let inputs = [];
+      let price = [239.99, 129.75, 99.95, 350.89]
+      let base = 200;
+      let commission = .09;
+      let total = 0;
+      $('.sales').each((e) => inputs.push(parseInt($('.sales')[e].value)))
+      if (validate(inputs)) {
+        inputs.forEach((input, index) => {
+          let sum = (price[index] * input).toFixed(2);
+          $('.total')[index].value = sum;
+          $('.sold')[index].value = input;
+          total += parseFloat(sum);
+          $('.sales').each((e) => $('.sales')[e].value = '')
+        });
+        $('.totalSold')[0].value = total.toFixed(2);
+        $('.earnings')[0].value = (base + (total * commission)).toFixed(2)
+      } else {
+        $('#err').text('Please enter all numbers and values greater than or equal to 0');
+      }
+    })
+
+  </script>
+</body>
+
+</html>

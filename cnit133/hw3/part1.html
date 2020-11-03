@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Student Grades</title>
+  <meta charset="UTF-8">
+  <meta name="description" content="Homework 3: Part 1">
+  <meta name="author" content="Michael Stringer">
+  <style>
+    #nav {
+      text-align: center;
+      margin: 30px;
+    }
+
+    #container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    #submit {
+      margin-top: 25px;
+      margin-left: 50%;
+      margin-right: 50%;
+      margin-bottom: 25px;
+    }
+  </style>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+</head>
+
+<body>
+  <div id="nav">
+    <a href="../homework3.html"><button>Home</button></a>
+    <a href="part2.html"><button>Part 2</button></a>
+    <a href="part3.html"><button>Part 3</button></a>
+    <a href="part4.html"><button>Part 4</button></a>
+  </div>
+  <div id="container">
+    <form>
+      <table>
+        <tr>
+          <th>
+            <label>Homework Average</label>
+          </th>
+          <th>
+            <input id="hwAvg" />
+          </th>
+        </tr>
+        <tr>
+          <th>
+            <label>Mid Exam</label>
+          </th>
+          <th>
+            <input id="midExam" />
+          </th>
+        </tr>
+        <tr>
+          <th>
+            <label>Final Exam</label>
+          </th>
+          <th>
+            <input id="finalExam" />
+          </th>
+        </tr>
+        <tr>
+          <th>
+            <label>Participation</label>
+          </th>
+          <th>
+            <input id="Participation" />
+          </th>
+        </tr>
+
+      </table>
+      <button id="submit">Submit</button>
+    </form>
+    <label id="err"></label>
+    <label id="grade"></label>
+  </div>
+  <script>
+    function validation(arr) {
+      let valid = true;
+      arr.forEach((num) => {
+        !isNaN(num) && (num >= 0 && num <= 100) ? null : valid = false;
+      })
+      return valid;
+    }
+    function grade(grade) {
+      if (grade >= 90) {
+        return 'A'
+      } else if (grade < 90 && grade >= 80) {
+        return 'B'
+      } else if (grade < 80 && grade >= 70) {
+        return 'C'
+      } else {
+        return 'Student must retake the course'
+      }
+    }
+
+    $('form').on('submit', (e) => {
+      e.preventDefault()
+      $('#err').text('')
+      let inputs = [];
+      let result = 0;
+      $('input').each((e) => inputs.push(parseFloat($('input')[e].value)))
+      if (validation(inputs)) {
+        //give result
+        $('input').each((e) => inputs.push(parseFloat($('input')[e].value = '')))
+        result = ((inputs[0] * .5) + (inputs[1] * .2) + (inputs[2] * .2) + (inputs[3] * .1));
+        let final = grade(Math.round(result));
+        final.length === 1 ? $('#grade').text(`Final grade is ${final}`) : $('#grade').text(final)
+      } else {
+        //error msg
+        $('#err').text('all inputs must be valid numbers')
+      }
+    })
+
+  </script>
+</body>
+
+</html>
